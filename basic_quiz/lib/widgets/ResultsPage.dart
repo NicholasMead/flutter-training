@@ -22,9 +22,12 @@ class ResultsPage extends StatelessWidget {
             margin: EdgeInsets.only(bottom: 10),
           ),
           OutlinedButton(
-            child: Text("Start Again"),
-            onPressed: onReset,
-          ),
+              child: Text("Start Again"),
+              onPressed: onReset,
+              style: OutlinedButton.styleFrom(
+                primary: Colors.orange,
+                side: BorderSide(color: Colors.orange),
+              )),
         ],
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,

@@ -21,10 +21,8 @@ class QuestionWidget extends StatelessWidget {
       var button = ElevatedButton(
         child: Text(_question.answers[x]),
         onPressed: () => onAnswer(x),
-        style: ButtonStyle(
-          backgroundColor: answeredIndex != x
-              ? MaterialStateProperty.all(Colors.blueGrey)
-              : MaterialStateProperty.all(Colors.blue),
+        style: ElevatedButton.styleFrom(
+          primary: answeredIndex != x ? Colors.blueGrey : Colors.blue,
         ),
       );
       answerButtons.add(Container(

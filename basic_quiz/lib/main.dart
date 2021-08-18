@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
                         setState(() => currentQuestionIndex = page - 1),
                   ),
                   Visibility(
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       child: Text("Submit"),
                       onPressed: onSubmit,
                     ),
@@ -73,6 +73,7 @@ class _MyAppState extends State<MyApp> {
                   numQuestions: questions.length,
                   onReset: onReset,
                 )),
+      color: Colors.green,
     );
   }
 }
