@@ -21,7 +21,7 @@ class ResultsPage extends StatelessWidget {
             ),
             margin: EdgeInsets.only(bottom: 10),
           ),
-          RaisedButton(
+          OutlinedButton(
             child: Text("Start Again"),
             onPressed: onReset,
           ),

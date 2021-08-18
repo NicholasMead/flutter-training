@@ -14,14 +14,19 @@ class QuestionWidget extends StatelessWidget {
 
   // set onAnswer(Function(int) callback) => onAnswer = callback;
 
-  Widget build(buildContext) {
+  Widget build(_) {
     var answerButtons = <Widget>[];
 
     for (var x = 0; x < _question.answers.length; x++) {
-      var button = RaisedButton(
-          child: Text(_question.answers[x]),
-          onPressed: () => onAnswer(x),
-          color: answeredIndex != x ? Colors.blueGrey : Colors.blue);
+      var button = ElevatedButton(
+        child: Text(_question.answers[x]),
+        onPressed: () => onAnswer(x),
+        style: ButtonStyle(
+          backgroundColor: answeredIndex != x
+              ? MaterialStateProperty.all(Colors.blueGrey)
+              : MaterialStateProperty.all(Colors.blue),
+        ),
+      );
       answerButtons.add(Container(
         width: double.infinity,
         margin: EdgeInsets.only(bottom: 10),
