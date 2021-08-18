@@ -21,6 +21,8 @@ class AnswerableQuestion extends Question {
       String question, List<String> answers, int correctAnswerIndex)
       : super(question, answers, correctAnswerIndex);
 
+  void reset() => _answeredIndex = -1;
+
   bool get isAnsered => _answeredIndex != -1;
   int get answeredIndex => _answeredIndex;
 

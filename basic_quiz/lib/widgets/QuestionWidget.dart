@@ -21,11 +21,7 @@ class QuestionWidget extends StatelessWidget {
       var button = RaisedButton(
           child: Text(_question.answers[x]),
           onPressed: () => onAnswer(x),
-          color: answeredIndex != x
-              ? Colors.blue
-              : _question.correctAnswerIndex == x
-                  ? Colors.green
-                  : Colors.red);
+          color: answeredIndex != x ? Colors.blueGrey : Colors.blue);
       answerButtons.add(Container(
         width: double.infinity,
         margin: EdgeInsets.only(bottom: 10),
