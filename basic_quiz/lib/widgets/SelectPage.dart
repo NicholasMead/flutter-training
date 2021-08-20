@@ -24,7 +24,7 @@ class SelectPage extends StatelessWidget {
             onPressed:
                 currentPage > 1 ? () => onPageChange(currentPage - 1) : null,
           ),
-          Text("${currentPage} of ${pageCount}"),
+          Text("$currentPage of $pageCount"),
           IconButton(
             icon: Icon(Icons.arrow_right),
             onPressed: currentPage < pageCount

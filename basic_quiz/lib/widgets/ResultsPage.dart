@@ -17,7 +17,7 @@ class ResultsPage extends StatelessWidget {
         children: [
           Container(
             child: Text(
-              "Quiz Completed (${result}/${numQuestions})",
+              "Quiz Completed ($result/$numQuestions)",
             ),
             margin: EdgeInsets.only(bottom: 10),
           ),

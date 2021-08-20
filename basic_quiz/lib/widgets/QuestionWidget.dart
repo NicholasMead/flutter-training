@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class QuestionWidget extends StatelessWidget {
   final Question _question;
   final ValueChanged<int> onAnswer;
-  int answeredIndex = -1;
+  final int answeredIndex;
 
   QuestionWidget(
     this._question, {
