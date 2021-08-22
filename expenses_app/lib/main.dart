@@ -43,6 +43,10 @@ class _MyHomePageState extends State<MyHomePage> {
       .where((t) => t.date.isAfter(DateTime.now().subtract(Duration(days: 7))))
       .toList();
 
+  bool _sameDay(DateTime d1, DateTime d2) {
+    return d1.day == d2.day && d1.month == d2.month && d1.year == d2.year;
+  }
+
   void onNewTransaction(String title, double amount, DateTime date) {
     var newTransaction = Transaction.create(
       title: title,
@@ -53,9 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       transactions.add(newTransaction);
       transactions.sort((t1, t2) {
-        return (t1.date.day == t2.date.day &&
-                t1.date.month == t2.date.month &&
-                t1.date.year == t2.date.year)
+        return _sameDay(t1.date, t2.date)
             ? t1.title.compareTo(t2.title)
             : t1.date.isAfter(t2.date)
                 ? -1

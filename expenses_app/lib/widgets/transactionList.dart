@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../layout/measuredBox.dart';
 import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
@@ -29,8 +30,9 @@ class TransactionList extends StatelessWidget {
 
 class TransactionListView extends StatelessWidget {
   final Function(TransactionId id) onDeletedTransaction;
+  final scrollController = ScrollController();
 
-  const TransactionListView({
+  TransactionListView({
     Key? key,
     required this.transactions,
     required this.onDeletedTransaction,
@@ -41,6 +43,7 @@ class TransactionListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      controller: scrollController,
       itemCount: transactions.length,
       itemBuilder: (ctx, index) {
         var tx = transactions[index];
@@ -48,8 +51,13 @@ class TransactionListView extends StatelessWidget {
           tx: tx,
           actions: [
             IconButton(
+              icon: Icon(Icons.edit),
+              onPressed: () {},
+            ),
+            IconButton(
               icon: Icon(Icons.delete),
               onPressed: () => onDeletedTransaction(tx.id),
+              padding: EdgeInsets.all(0),
             ),
           ],
         );
@@ -74,25 +82,48 @@ class AnimatedTransactionTile extends StatefulWidget {
 }
 
 class _AnimatedTransactionTileState extends State<AnimatedTransactionTile> {
-  bool _activated = false;
+  bool _showIcons = false;
+  Size? _actionSize;
 
   Widget build(BuildContext context) {
-    var children = <Widget>[
-      Expanded(
-        child: InkWell(
-          child: TransactionTile(tx: widget.tx),
-        ),
+    var actions = MeasuredBox(
+      onRenderedSize: (size) => setState(() {
+        _actionSize = size;
+      }),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisSize: MainAxisSize.min,
+        children: widget.actions!,
       ),
-    ];
+    );
 
-    if (_activated && widget.actions != null)
-      children = <Widget>[...children, ...(widget.actions!)];
+    var stack = Stack(
+      alignment: Alignment.centerRight,
+      children: <Widget>[
+        actions,
+        Row(
+          children: [
+            Expanded(
+              child: _actionSize == null
+                  ? Container(
+                      decoration: BoxDecoration(color: Colors.red),
+                    )
+                  : TransactionTile(tx: widget.tx),
+            ),
+            AnimatedContainer(
+              duration: Duration(milliseconds: 200),
+              width: _showIcons && _actionSize != null ? _actionSize!.width : 0,
+            ),
+          ],
+        ),
+      ],
+    );
 
     return GestureDetector(
-      onLongPress: () => setState(() => _activated = !_activated),
+      onLongPress: () => setState(() => _showIcons = !_showIcons),
       onHorizontalDragUpdate: (details) =>
-          setState(() => _activated = details.delta.dx < 0),
-      child: Row(children: children),
+          setState(() => _showIcons = details.delta.dx < 0),
+      child: stack,
     );
   }
 }

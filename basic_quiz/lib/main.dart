@@ -17,6 +17,10 @@ class _MyAppState extends State<MyApp> {
     AnswerableQuestion("What is 1-1?", ["0", "1", "2", "3"], 0),
     AnswerableQuestion("What is 1x1?", ["0", "1", "2", "3"], 1),
     AnswerableQuestion("What is 1+2?", ["0", "1", "2", "3"], 3),
+    AnswerableQuestion("What is the name of this planet",
+        ["Mars", "Earth", "Venus", "Mercury"], 1),
+    AnswerableQuestion(
+        "Is Merlin Cute?", ["Always", "Sometimes", "Rarely", "Never"], 0),
   ];
 
   AnswerableQuestion get currentQuestion => questions[currentQuestionIndex];
