@@ -9,7 +9,17 @@ class FiltersContext with ChangeNotifier {
   bool _showGluttenFree = false;
 
   bool get showAll => !_showVegan && !_showGluttenFree && !_showLactoseFree;
+  void setShowAll() {
+    if (showAll) return;
 
+    _showVegan = false;
+    _showLactoseFree = false;
+    _showGluttenFree = false;
+
+    notifyListeners();
+  }
+
+  bool get showVegan => _showVegan;
   set showVegan(bool value) {
     if (_showVegan == value) return;
 
@@ -17,6 +27,7 @@ class FiltersContext with ChangeNotifier {
     notifyListeners();
   }
 
+  bool get showLactoseFree => _showLactoseFree;
   set showLactoseFree(bool value) {
     if (_showLactoseFree == value) return;
 
@@ -24,6 +35,7 @@ class FiltersContext with ChangeNotifier {
     notifyListeners();
   }
 
+  bool get showGluttenFree => _showGluttenFree;
   set showGluttenFree(bool value) {
     if (_showGluttenFree == value) return;
 

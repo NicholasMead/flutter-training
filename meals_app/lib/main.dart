@@ -3,7 +3,6 @@ import 'package:meals_app/data/categoriesContext.dart';
 import 'package:meals_app/data/mealsContext.dart';
 import 'package:meals_app/pages/mainPage.dart';
 import 'package:meals_app/pages/mealDetailPage.dart';
-import 'package:meals_app/pages/categroiesPage.dart';
 import 'package:provider/provider.dart';
 
 import 'data/filtersContext.dart';
