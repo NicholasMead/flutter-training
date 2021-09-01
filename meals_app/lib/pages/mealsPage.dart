@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app/data/filtersContext.dart';
 import 'package:meals_app/widgets/filterAppBarAction.dart';
 import 'package:provider/provider.dart';
 
 import '../data/mealsContext.dart';
+import '../data/filters_bloc.dart';
 import '../widgets/mealTile.dart';
 import '../models/meal.dart';
 import './mealDetailPage.dart';
@@ -41,8 +41,9 @@ class MealsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var color = this.color ?? Theme.of(context).primaryColor;
+    var filters = context.watch<FiltersBloc>().state;
 
-    var meals = context.watch<FiltersContext>().filter(this.meals).toList();
+    var meals = context.watch<MealsContext>().allMeals.withFilters(filters).toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -53,8 +54,7 @@ class MealsPage extends StatelessWidget {
         ],
       ),
       body: ListView.builder(
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.33),
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.33),
         itemBuilder: (ctx, index) => Container(
           margin: const EdgeInsets.all(15).copyWith(bottom: 0),
           child: MealTile(

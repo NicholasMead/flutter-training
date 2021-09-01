@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meals_app/data/filters_bloc.dart';
 import 'package:provider/provider.dart';
 
 import '../data/filtersContext.dart';
@@ -41,7 +42,7 @@ class _FilterAppBarActionState extends State<FilterAppBarAction> {
 
   @override
   Widget build(BuildContext context) {
-    final filtersContext = context.watch<FiltersContext>();
+    final filtersContext = context.watch<FiltersBloc>();
 
     return PopupMenuButton(
       icon: Icon(Icons.filter_list_alt),
@@ -50,38 +51,41 @@ class _FilterAppBarActionState extends State<FilterAppBarAction> {
           _buildMenuItem(
             name: "Vegan",
             value: FilterOptions.vegan,
-            active: filtersContext.showVegan,
+            active: filtersContext.state.showVegan,
           ),
           _buildMenuItem(
-            name: "Glutten Free",
+            name: "Gluten Free",
             value: FilterOptions.glutenFree,
-            active: filtersContext.showGluttenFree,
+            active: filtersContext.state.showGlutenFree,
           ),
           _buildMenuItem(
             name: "Lactose Free",
             value: FilterOptions.lactoseFree,
-            active: filtersContext.showLactoseFree,
+            active: filtersContext.state.showLactoseFree,
           ),
+          PopupMenuDivider(),
           _buildMenuItem(
             name: "Show All",
             value: FilterOptions.all,
-            active: filtersContext.showAll,
+            active: filtersContext.state.showAll,
           )
         ];
       },
       onSelected: (value) {
         switch (value) {
           case FilterOptions.vegan:
-            filtersContext.showVegan = !filtersContext.showVegan;
+            filtersContext.add(SetFilterEvent(showVegan: !filtersContext.state.showVegan));
             break;
           case FilterOptions.lactoseFree:
-            filtersContext.showLactoseFree = !filtersContext.showLactoseFree;
+            filtersContext
+                .add(SetFilterEvent(showLactoseFree: !filtersContext.state.showLactoseFree));
             break;
           case FilterOptions.glutenFree:
-            filtersContext.showGluttenFree = !filtersContext.showGluttenFree;
+            filtersContext
+                .add(SetFilterEvent(showGlutenFree: !filtersContext.state.showGlutenFree));
             break;
           case FilterOptions.all:
-            filtersContext.setShowAll();
+            filtersContext.add(ClearFiltersEvent());
             break;
         }
       },

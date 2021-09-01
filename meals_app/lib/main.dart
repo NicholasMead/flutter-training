@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meals_app/data/categoriesContext.dart';
+import 'package:meals_app/data/filters_bloc.dart';
 import 'package:meals_app/data/mealsContext.dart';
 import 'package:meals_app/pages/mainPage.dart';
 import 'package:meals_app/pages/mealDetailPage.dart';
 import 'package:provider/provider.dart';
 
-import 'data/filtersContext.dart';
 import 'pages/categoryMealsPage.dart';
 
 void main() {
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
       providers: [
         MealsContext.asProvider(),
         CategoriesContext.asProvider(),
-        FiltersContext.asProvider(),
+        BlocProvider(create: (_) => FiltersBloc()),
+        //FiltersContext.asProvider(),
       ],
       child: MaterialApp(
         title: 'Food App',
